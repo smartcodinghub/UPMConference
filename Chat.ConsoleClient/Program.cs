@@ -23,21 +23,26 @@ namespace Chat.ConsoleClient
 
             connection.On<string, DateTime, string>("Received", (userName, time, m) =>
             {
-                Console.SetCursorPosition(0, Console.CursorTop);
-                Console.WriteLine($"{userName}: {m}    | {time}");
-                Console.Write("Tú:            ");
+                Console.SetCursorPosition(0, Console.CursorTop - 1);
+                Console.WriteLine($"[{time}] {userName}: {m,-80}");
+                Console.WriteLine(new string('-', 100));
+                Console.Write("Tú: ");
             });
 
             await connection.StartAsync();
             await connection.SendAsync("Register", name);
 
-            /*  */
+            /* Message Sending */
             string message = null;
-            Console.Write("Tú:                                    ");
+            Console.WriteLine(new string('-', 100));
+            Console.Write("Tú: ");
             while((message = Console.ReadLine()) != @"\exit")
             {
+                Console.SetCursorPosition(0, Console.CursorTop - 2);
+                Console.WriteLine($"Tú:    {message,93}");
                 await connection.SendAsync("Send", other, message);
-                Console.Write("Tú:                                    ");
+                Console.WriteLine(new string('-', 100));
+                Console.Write("Tú: ");
             }
         }
     }
