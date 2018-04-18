@@ -18,7 +18,6 @@ namespace Chat.ConsoleClient
             var connection = new HubConnectionBuilder()
                             .WithUrl("http://localhost:8080/chat")
                             .WithHeader("user", name)
-                            .WithConsoleLogger()
                             .Build();
 
             connection.On<string, DateTime, string>("Received", (userName, time, m) =>
