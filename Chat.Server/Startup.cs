@@ -15,7 +15,6 @@ namespace Chat.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSignalR();
             services.AddSingleton<IUserRepository, UserRepository>();
         }
 
@@ -26,8 +25,6 @@ namespace Chat.Server
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseSignalR(routes => routes.MapHub<ChatHub>(ChatHub.Path));
         }
     }
 }
