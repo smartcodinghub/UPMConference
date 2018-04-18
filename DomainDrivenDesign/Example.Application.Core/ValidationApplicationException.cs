@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
-using Template.Domain.Core;
-using Template.Infraestructure.Crosscutting;
+using Example.Domain.Core;
+using Example.Infraestructure.Crosscutting;
 
 namespace Example.Application.Core
 {

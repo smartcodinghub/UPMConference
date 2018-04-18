@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Net;
+using Example.Application.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
-using Template.Application.Core;
 
 namespace Example.Site.Core
 {

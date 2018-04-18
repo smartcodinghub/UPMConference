@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Example.Infraestructure.Crosscutting;
 using Microsoft.EntityFrameworkCore;
-using Template.Infraestructure.Crosscutting;
 
 namespace Example.Infraestructure.Data.Core
 {

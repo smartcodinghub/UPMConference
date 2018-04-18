@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Template.Infraestructure.Crosscutting;
+using Example.Infraestructure.Crosscutting;
 
 namespace Example.Application.Core
 {

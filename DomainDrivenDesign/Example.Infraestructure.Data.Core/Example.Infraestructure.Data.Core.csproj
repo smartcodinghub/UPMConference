@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Template.Infraestructure.Crosscutting\Template.Infraestructure.Crosscutting.csproj" />
+    <ProjectReference Include="..\Example.Infraestructure.Crosscutting\Example.Infraestructure.Crosscutting.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Template.Domain.Core;
+using Example.Domain.Core;
 
 namespace Example.Application.Core
 {
