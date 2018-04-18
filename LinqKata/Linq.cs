@@ -86,9 +86,17 @@ namespace LinqKata
             return filtered;
         }
 
+        /// <summary>
+        /// Names = new List<string>() { "Names1", "Names2" } }
+        /// Names = new List<string>() { "Names1", "Names2" } }
+        /// 
+        /// Debería devolver -> new List<string>() { "1", "2", "1", "2" }
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns></returns>
         public static List<string> GetNumbersOfNames(List<Dummy> values)
         {
-            return values.SelectMany(v => v.Names.Select(n => new string(n.Where(char.IsDigit).ToArray()))).ToList();
+            return null;
         }
     }
 
