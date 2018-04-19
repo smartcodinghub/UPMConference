@@ -3,7 +3,6 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Chat.ConsoleClient
 {
@@ -11,34 +10,7 @@ namespace Chat.ConsoleClient
     {
         static async Task Main(string[] args)
         {
-            Console.Write("¡Bienvenido! ¿Cual es tu nombre? ");
-            string name = Console.ReadLine();
 
-            Console.Write("¿Con quién quieres hablar? ");
-            string other = Console.ReadLine();
-
-            /* Subscription */
-            var connection = new HubConnectionBuilder()
-                            .WithUrl("http://localhost:8080/chat")
-                            .WithCookie(LogIn(name, "none"))
-                            .Build();
-
-            connection.On<string, DateTime, string>("Received", (from, time, m) =>
-            {
-                WriteReceivedMessage(from, time, m);
-            });
-
-            await connection.StartAsync();
-
-            /* Message Sending */
-            string message = null;
-            WriteMessageBlock();
-            while((message = Console.ReadLine()) != @":q")
-            {
-                WriteSentMessage(message);
-                await connection.SendAsync("Send", other, message);
-                WriteMessageBlock();
-            }
         }
 
         private static void WriteReceivedMessage(string userName, DateTime time, string m)
