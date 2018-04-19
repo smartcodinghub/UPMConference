@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Chat.Server
@@ -7,6 +9,7 @@ namespace Chat.Server
     /// <summary>
     /// Hub para el tiempo real
     /// </summary>
+    [Authorize]
     public class ChatHub : Hub<IChatClient>
     {
         /// <summary>
@@ -21,22 +24,29 @@ namespace Chat.Server
             this.repository = repository;
         }
 
-        public Task Send(string userName, String message)
+        public Task Send(string to, String message)
         {
-            return Clients.Client(repository.FindIdByName(userName))
-                .Received(repository.FindNameById(Context.ConnectionId), DateTime.Now, message);
+            var senderName = Context.User.Identity.Name;
+
+            return Clients.Client(repository.Find(to))
+                .Received(senderName, DateTime.Now, message);
         }
 
-        public async Task Register(string userName)
+        public override async Task OnConnectedAsync()
         {
-            repository.Register(userName, Context.ConnectionId);
+            var senderName = Context.User.Identity.Name;
+            repository.Register(senderName, Context.ConnectionId);
+
+            await base.OnConnectedAsync();
         }
 
-        public override Task OnDisconnectedAsync(Exception exception)
+        public override async Task OnDisconnectedAsync(Exception exception)
         {
-            repository.RemoveById(Context.ConnectionId);
+            repository.Remove(Context.ConnectionId);
+            var context = Context.GetHttpContext();
 
-            return base.OnDisconnectedAsync(exception);
+            await context.SignOutAsync();
+            await base.OnDisconnectedAsync(exception);
         }
     }
 

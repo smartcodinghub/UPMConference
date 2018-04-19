@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Net;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
 
@@ -17,32 +20,60 @@ namespace Chat.ConsoleClient
             /* Subscription */
             var connection = new HubConnectionBuilder()
                             .WithUrl("http://localhost:8080/chat")
-                            .WithHeader("user", name)
+                            .WithCookie(LogIn(name, "none"))
                             .Build();
 
-            connection.On<string, DateTime, string>("Received", (userName, time, m) =>
+            connection.On<string, DateTime, string>("Received", (from, time, m) =>
             {
-                Console.SetCursorPosition(0, Console.CursorTop - 1);
-                Console.WriteLine($"[{time}] {userName}: {m,-80}");
-                Console.WriteLine(new string('-', 100));
-                Console.Write("Tú: ");
+                WriteReceivedMessage(from, time, m);
             });
 
             await connection.StartAsync();
-            await connection.SendAsync("Register", name);
 
             /* Message Sending */
             string message = null;
+            WriteMessageBlock();
+            while((message = Console.ReadLine()) != @":q")
+            {
+                WriteSentMessage(message);
+                await connection.SendAsync("Send", other, message);
+                WriteMessageBlock();
+            }
+        }
+
+        private static void WriteReceivedMessage(string userName, DateTime time, string m)
+        {
+            Console.SetCursorPosition(0, Console.CursorTop - 1);
+            Console.WriteLine($"[{time}] {userName}: {m,-80}");
+            WriteMessageBlock();
+        }
+
+        private static void WriteSentMessage(string message)
+        {
+            Console.SetCursorPosition(0, Console.CursorTop - 2);
+            Console.WriteLine($"Tú:    {message,93}");
+        }
+
+        private static void WriteMessageBlock()
+        {
             Console.WriteLine(new string('-', 100));
             Console.Write("Tú: ");
-            while((message = Console.ReadLine()) != @"\exit")
+        }
+
+        private static Cookie LogIn(string user, string password)
+        {
+            var uri = new Uri("http://localhost:8080");
+            var cookieContainer = new CookieContainer();
+            using(var handler = new HttpClientHandler() { CookieContainer = cookieContainer })
+            using(var client = new HttpClient(handler) { BaseAddress = uri })
             {
-                Console.SetCursorPosition(0, Console.CursorTop - 2);
-                Console.WriteLine($"Tú:    {message,93}");
-                await connection.SendAsync("Send", other, message);
-                Console.WriteLine(new string('-', 100));
-                Console.Write("Tú: ");
+                cookieContainer.Add(uri, new Cookie("CookieName", "cookie_value"));
+                StringContent content = new StringContent($@"{{ ""user"" : ""{user}"", ""password"" : ""{password}"" }}", Encoding.UTF8, "application/json");
+                var result = client.PostAsync("/Account/Login", content).Result;
+                result.EnsureSuccessStatusCode();
             }
+
+            return cookieContainer.GetCookies(uri)[".AspNetCore.Cookies"];
         }
     }
 }
