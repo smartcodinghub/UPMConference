@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
@@ -26,7 +24,7 @@ namespace Chat.Server
         public Task Send(string userName, String message)
         {
             return Clients.Client(repository.FindIdByName(userName))
-                .Received(userName, DateTime.Now, message);
+                .Received(repository.FindNameById(Context.ConnectionId), DateTime.Now, message);
         }
 
         public async Task Register(string userName)
