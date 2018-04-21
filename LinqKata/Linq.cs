@@ -7,26 +7,11 @@ namespace LinqKata
 {
     public static class Linq
     {
-        //private List<LinqTest> values = new List<LinqTest>();
-
-        //public Linq()
-        //{
-        //    this.values = new List<LinqTest>()
-        //    {
-        //        new LinqTest () { Id = 1, Name = "Name", Names = new List<string>() { "Names1", "Names2" } },
-        //        new LinqTest () { Id = 11, Name = "Name1", Names = new List<string>() { "Names11", "Names21" } },
-        //        new LinqTest () { Id = 12, Name = "Name2", Names = new List<string>() { "Names12", "Names22" } },
-        //        new LinqTest () { Id = 13, Name = "Name3", Names = new List<string>() { "Names1", "Names2" } },
-        //        new LinqTest () { Id = 14, Name = "Name4", Names = new List<string>() { "Names14", "Names24" } },
-        //        new LinqTest () { Id = 15, Name = "Name5", Names = new List<string>() { "N1ames15", "Nam32es25" } },
-        //    };
-        //}
-
         public static List<string> GetNames(List<Dummy> values)
         {
             List<string> filtered = new List<string>();
 
-            foreach(var value in values)
+            foreach (var value in values)
             {
                 filtered.Add(value.Name);
             }
@@ -38,9 +23,9 @@ namespace LinqKata
         {
             List<string> filtered = new List<string>();
 
-            foreach(var value in values)
+            foreach (var value in values)
             {
-                if(value.Id >= min)
+                if (value.Id >= min)
                     filtered.Add(value.Name);
             }
 
@@ -51,7 +36,7 @@ namespace LinqKata
         {
             List<Dummy> filtered = new List<Dummy>();
 
-            for(int i = start; i < values.Count || i <= end; i++)
+            for (int i = start; i < values.Count || i <= end; i++)
             {
                 filtered.Add(values[i]);
             }
@@ -63,7 +48,7 @@ namespace LinqKata
         {
             List<string> filtered = new List<string>();
 
-            foreach(var value in values)
+            foreach (var value in values)
             {
                 filtered.AddRange(value.Names);
             }
@@ -75,11 +60,11 @@ namespace LinqKata
         {
             List<string> filtered = new List<string>();
 
-            foreach(var value in values)
+            foreach (var value in values)
             {
-                foreach(string name in value.Names)
+                foreach (string name in value.Names)
                 {
-                    if(!filtered.Contains(name)) filtered.Add(name);
+                    if (!filtered.Contains(name)) filtered.Add(name);
                 }
             }
 
@@ -87,14 +72,67 @@ namespace LinqKata
         }
 
         /// <summary>
-        /// Names = new List<string>() { "Names1", "Names2" } }
-        /// Names = new List<string>() { "Names1", "Names2" } }
+        /// Names = new List<string>() { "Names1", "Names2" } ;
+        /// Names = new List<string>() { "Names1", "Names2" } ;
         /// 
-        /// Debería devolver -> new List<string>() { "1", "2", "1", "2" }
+        /// Debería devolver -> new List<string>() { "1", "2", "1", "2" } ;
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
         public static List<string> GetNumbersOfNames(List<Dummy> values)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Votes = new List<string>() { "Yes", "No", "Yes", "No", "No" }
+        /// 
+        /// Lista con el número de "Yes" y el número de "No"
+        /// Debería devolver -> new List<int>() {2, 3};
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public static List<int> CountVotes(List<string> votes)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Pets = new List<string>() { "Dog", "Cat", "Rabbit", "Dog", "Dog", "Cat" };
+        /// 
+        /// Lista con el nombre del animal seguido de : y el número de veces que se repite (SIN ESPACIOS)
+        /// Ordenada ascendente por el animal
+        /// Debería devolver -> new List<string>() {"Cat:2", "Dog:3", "Rabbit:1"};
+        /// </summary>
+        /// <param name="pets"></param>
+        /// <returns></returns>
+        public static List<string> CountPets(List<string> pets)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// score = new List<int>() {1, 10, 2, 4, 2, 0, 1, 0}
+        /// 
+        /// Suma de las puntuaciones exceptuando las tres puntuaciones más bajas
+        /// Debería devolver: 19
+        /// </summary>
+        /// <param name="score"></param>
+        /// <returns></returns>
+        public static int TotalScore(List<int> score)
+        {
+            return 0;
+        }
+
+        /// <summary>
+        /// numbers = new List<int>() {0, 1, 2, 3, .., 100}
+        /// 
+        /// Lista de número cogiendo las posiciones de 5 en 5
+        /// Debería devolver -> new List<int>() {0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95}
+        /// </summary>
+        /// <param name="numbers"></param>
+        /// <returns></returns>
+        public static List<int> NumbersFromFiveToFive(List<int> numbers)
         {
             return null;
         }
@@ -103,7 +141,9 @@ namespace LinqKata
     public class Dummy
     {
         public int Id { get; set; }
+
         public string Name { get; set; }
+
         public List<string> Names { get; set; }
     }
 }
