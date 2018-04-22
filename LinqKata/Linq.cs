@@ -94,7 +94,7 @@ namespace LinqKata
         /// <returns></returns>
         public static List<int> CountVotes(List<string> votes)
         {
-            return null;
+            return new List<int>() { votes.Count(y => y.ToLower() == "yes"), votes.Count(n => n.ToLower() == "no") };
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace LinqKata
         /// <returns></returns>
         public static List<string> CountPets(List<string> pets)
         {
-            return null;
+            return pets.GroupBy(n => n).Select(n => $"{n.Key}:{n.Count()}").OrderBy(n => n).ToList();
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace LinqKata
         /// <returns></returns>
         public static int TotalScore(List<int> score)
         {
-            return 0;
+            return score.OrderBy(s => s).Skip(3).Sum();
         }
 
         /// <summary>
@@ -134,12 +134,23 @@ namespace LinqKata
         /// <returns></returns>
         public static List<int> NumbersFromFiveToFive(List<int> numbers)
         {
-            return null;
+            return numbers.Where((x, i) => i % 5 == 0).ToList();
         }
 
+        /// <summary>
+        /// expand = new List<string>() { "A5", "B10", "C", "D2" };
+        /// 
+        /// Cadena con la letra repetida tantas veces como diga su número, sin número significa una sola vez
+        /// Devolver un string AAAAABBBBBBBBBBCDD
+        /// </summary>
+        /// <param name="expand"></param>
+        /// <returns></returns>
         public static string ExpandLetters(List<string> expand)
         {
-            return null;
+            return string.Join("", expand
+                                    .Select(x => new { letter = x.ToCharArray()[0], count = x.Substring(1) })
+                                    .Select(x => new string(x.letter, x.count == "" ? 1 : int.Parse(x.count)))
+                               );
         }
     }
 
