@@ -94,7 +94,7 @@ namespace LinqKata
         /// <returns></returns>
         public static List<int> CountVotes(List<string> votes)
         {
-            return new List<int>() { votes.Count(y => y.ToLower() == "yes"), votes.Count(n => n.ToLower() == "no") };
+            return null;
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace LinqKata
         /// <returns></returns>
         public static List<string> CountPets(List<string> pets)
         {
-            return pets.GroupBy(n => n).Select(n => $"{n.Key}:{n.Count()}").OrderBy(n => n).ToList();
+            return null;
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace LinqKata
         /// <returns></returns>
         public static int TotalScore(List<int> score)
         {
-            return score.OrderBy(s => s).Skip(3).Sum();
+            return 0;
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace LinqKata
         /// <returns></returns>
         public static List<int> NumbersFromFiveToFive(List<int> numbers)
         {
-            return numbers.Where((x, i) => i % 5 == 0).ToList();
+            return null;
         }
 
         /// <summary>
@@ -147,10 +147,7 @@ namespace LinqKata
         /// <returns></returns>
         public static string ExpandLetters(List<string> expand)
         {
-            return string.Join("", expand
-                                    .Select(x => new { letter = x.ToCharArray()[0], count = x.Substring(1) })
-                                    .Select(x => new string(x.letter, x.count == "" ? 1 : int.Parse(x.count)))
-                               );
+            return null;
         }
     }
 
