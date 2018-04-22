@@ -136,6 +136,11 @@ namespace LinqKata
         {
             return null;
         }
+
+        public static string ExpandLetters(List<string> expand)
+        {
+            return null;
+        }
     }
 
     public class Dummy

@@ -12,6 +12,7 @@ namespace LinqKata
         private List<string> pets = new List<string>();
         private List<int> score = new List<int>();
         private List<int> numbers = new List<int>();
+        private List<string> expand = new List<string>();
 
         [TestInitialize]
         public void Initialize()
@@ -42,6 +43,8 @@ namespace LinqKata
             this.score = new List<int>() { 10, 5, 0, 8, 10, 1, 4, 0, 10, 1 };
 
             this.numbers = Enumerable.Range(0, 100).ToList();
+
+            this.expand = new List<string>() { "A5", "B10", "C", "D2" };
         }
 
         [TestMethod]
@@ -95,6 +98,14 @@ namespace LinqKata
             var result = Linq.NumbersFromFiveToFive(numbers);
 
             CollectionAssert.AreEquivalent(new List<int> { 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95 }, result);
+        }
+
+        [TestMethod]
+        public void ExpandLettersTest()
+        {
+            var result = Linq.ExpandLetters(expand);
+
+            Assert.AreEqual("AAAAABBBBBBBBBBCDD", result);
         }
     }
 }
