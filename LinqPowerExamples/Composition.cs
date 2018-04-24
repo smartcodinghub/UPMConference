@@ -6,16 +6,6 @@ namespace LinqPowerExamples
 {
     public static class Composition
     {
-        /// <summary>
-        /// Composition of Linq MEthods
-        /// 
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="source"></param>
-        /// <param name="index"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
         public static IEnumerable<T> Page<T>(this IEnumerable<T> source, int index, int count)
         {
             return source.Skip(index).Take(count);
