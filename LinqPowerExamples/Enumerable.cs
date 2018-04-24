@@ -65,6 +65,10 @@ namespace LinqPowerExamples
             return list;
         }
 
+        /// <summary>
+        /// This methods generates endless prime numbers
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<int> EndlessPrimes()
         {
             Func<int, bool> isPrime = n =>
@@ -87,6 +91,10 @@ namespace LinqPowerExamples
             }
         }
 
+        /// <summary>
+        /// This methods generates endless fib numbers
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<int> EndlessFibonacci()
         {
             yield return 0;
@@ -103,6 +111,10 @@ namespace LinqPowerExamples
             }
         }
 
+        /// <summary>
+        /// This methods generates n fib numbers
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<int> Fibonacci(int n)
         {
             List<int> fib = new List<int>(n) { 0 };

@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System;
+using System.Collections.Generic;
 
 namespace LinqKata
 {
@@ -81,7 +79,7 @@ namespace LinqKata
         /// <returns></returns>
         public static List<string> GetNumbersOfNames(List<Dummy> values)
         {
-            return null;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -95,11 +93,7 @@ namespace LinqKata
         /// <returns></returns>
         public static List<string> CountPets(List<string> pets)
         {
-            return pets.GroupBy(n => n.ToLower())
-                .Select(n => new { n.Key, Count = n.Count() })
-                .OrderBy(n => n.Key)
-                .Select(n => $"{n.Key}:{n.Count}")
-                .ToList();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -112,7 +106,7 @@ namespace LinqKata
         /// <returns></returns>
         public static int TotalScore(List<int> score)
         {
-            return score.OrderBy(s => s).Skip(3).Sum();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -125,7 +119,7 @@ namespace LinqKata
         /// <returns></returns>
         public static List<int> NumbersFromFiveToFive(List<int> numbers)
         {
-            return numbers.Where((x, i) => i % 5 == 0).ToList();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -138,13 +132,7 @@ namespace LinqKata
         /// <returns></returns>
         public static string ExpandLetters(string expand)
         {
-            Regex r = new Regex(@"(\w)(\d*)");
-
-            return r.Matches(expand)
-                .Select(m => new { Letter = m.Groups[1].Value, Count = m.Groups[2].Value })
-                .Select(g => new { Letter = g.Letter[0], Count = string.IsNullOrEmpty(g.Count) ? 1 : int.Parse(g.Count) })
-                .Aggregate(new StringBuilder(), (seed, next) => seed.Append(next.Letter, next.Count))
-                .ToString();
+            throw new NotImplementedException();
         }
     }
 
