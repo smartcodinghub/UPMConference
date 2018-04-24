@@ -3,6 +3,13 @@ using System.Collections.Generic;
 
 namespace LinqKata
 {
+    /// <summary>
+    /// El objetivo es realizar toda la Kata usando Linq exclusivamente.
+    /// 
+    /// Hay dos tipos de Tests:
+    /// *   Con el código funcionando y que hay que refactorizar
+    /// *   Con un comentario explicativo y que hay que completar
+    /// </summary>
     public static class Linq
     {
         public static List<string> GetNames(List<Dummy> values)
@@ -127,6 +134,8 @@ namespace LinqKata
         /// 
         /// Cadena con la letra repetida tantas veces como diga su número, sin número significa una sola vez
         /// Devolver un string AAAAABBBBBBBBBBCDD
+        /// 
+        /// Se pueden usar expresiones regulares
         /// </summary>
         /// <param name="expand"></param>
         /// <returns></returns>
