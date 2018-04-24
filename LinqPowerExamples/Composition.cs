@@ -8,7 +8,7 @@ namespace LinqPowerExamples
     {
         public static IEnumerable<T> Page<T>(this IEnumerable<T> source, int index, int count)
         {
-            return source.Skip(index).Take(count);
+            return source.Skip((index - 1) * count).Take(count);
         }
 
         public static void ComposeLinq()
