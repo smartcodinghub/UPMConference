@@ -130,7 +130,7 @@ namespace LinqKata
         }
 
         /// <summary>
-        /// expand = new List<string>() { "A5", "B10", "C", "D2" };
+        /// expand = "A5B10CD2"
         /// 
         /// Cadena con la letra repetida tantas veces como diga su número, sin número significa una sola vez
         /// Devolver un string AAAAABBBBBBBBBBCDD
