@@ -1,27 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace LinqKata
 {
     public static class Linq
     {
-        //private List<LinqTest> values = new List<LinqTest>();
-
-        //public Linq()
-        //{
-        //    this.values = new List<LinqTest>()
-        //    {
-        //        new LinqTest () { Id = 1, Name = "Name", Names = new List<string>() { "Names1", "Names2" } },
-        //        new LinqTest () { Id = 11, Name = "Name1", Names = new List<string>() { "Names11", "Names21" } },
-        //        new LinqTest () { Id = 12, Name = "Name2", Names = new List<string>() { "Names12", "Names22" } },
-        //        new LinqTest () { Id = 13, Name = "Name3", Names = new List<string>() { "Names1", "Names2" } },
-        //        new LinqTest () { Id = 14, Name = "Name4", Names = new List<string>() { "Names14", "Names24" } },
-        //        new LinqTest () { Id = 15, Name = "Name5", Names = new List<string>() { "N1ames15", "Nam32es25" } },
-        //    };
-        //}
-
         public static List<string> GetNames(List<Dummy> values)
         {
             List<string> filtered = new List<string>();
@@ -87,10 +72,10 @@ namespace LinqKata
         }
 
         /// <summary>
-        /// Names = new List<string>() { "Names1", "Names2" } }
-        /// Names = new List<string>() { "Names1", "Names2" } }
+        /// Names = new List<string>() { "Names1", "Names2" } ;
+        /// Names = new List<string>() { "Names1", "Names2" } ;
         /// 
-        /// Debería devolver -> new List<string>() { "1", "2", "1", "2" }
+        /// Debería devolver -> new List<string>() { "1", "2", "1", "2" } ;
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
@@ -98,12 +83,77 @@ namespace LinqKata
         {
             return null;
         }
+
+        /// <summary>
+        /// Pets = new List<string>() { "Dog", "Cat", "Rabbit", "Dog", "Dog", "Cat" };
+        /// 
+        /// Lista con el nombre del animal seguido de : y el número de veces que se repite (SIN ESPACIOS)
+        /// Ordenada ascendente por el animal
+        /// Debería devolver -> new List<string>() {"cat:2", "dog:3", "rabbit:1"};
+        /// </summary>
+        /// <param name="pets"></param>
+        /// <returns></returns>
+        public static List<string> CountPets(List<string> pets)
+        {
+            return pets.GroupBy(n => n.ToLower())
+                .Select(n => new { n.Key, Count = n.Count() })
+                .OrderBy(n => n.Key)
+                .Select(n => $"{n.Key}:{n.Count}")
+                .ToList();
+        }
+
+        /// <summary>
+        /// score = new List<int>() {1, 10, 2, 4, 2, 0, 1, 0}
+        /// 
+        /// Suma de las puntuaciones exceptuando las tres puntuaciones más bajas
+        /// Debería devolver: 19
+        /// </summary>
+        /// <param name="score"></param>
+        /// <returns></returns>
+        public static int TotalScore(List<int> score)
+        {
+            return score.OrderBy(s => s).Skip(3).Sum();
+        }
+
+        /// <summary>
+        /// numbers = new List<int>() {0, 1, 2, 3, .., 100}
+        /// 
+        /// Lista de número cogiendo las posiciones de 5 en 5
+        /// Debería devolver -> new List<int>() {0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95}
+        /// </summary>
+        /// <param name="numbers"></param>
+        /// <returns></returns>
+        public static List<int> NumbersFromFiveToFive(List<int> numbers)
+        {
+            return numbers.Where((x, i) => i % 5 == 0).ToList();
+        }
+
+        /// <summary>
+        /// expand = new List<string>() { "A5", "B10", "C", "D2" };
+        /// 
+        /// Cadena con la letra repetida tantas veces como diga su número, sin número significa una sola vez
+        /// Devolver un string AAAAABBBBBBBBBBCDD
+        /// </summary>
+        /// <param name="expand"></param>
+        /// <returns></returns>
+        public static string ExpandLetters(string expand)
+        {
+            Regex r = new Regex(@"(\w)(\d*)");
+
+            return r.Matches(expand)
+                .Select(m => new { Letter = m.Groups[1].Value, Count = m.Groups[2].Value })
+                .Select(g => new { Letter = g.Letter[0], Count = string.IsNullOrEmpty(g.Count) ? 1 : int.Parse(g.Count) })
+                .Aggregate(new StringBuilder(), (seed, next) => seed.Append(next.Letter, next.Count))
+                .ToString();
+        }
     }
 
     public class Dummy
     {
         public int Id { get; set; }
+
         public string Name { get; set; }
+
         public List<string> Names { get; set; }
     }
 }
