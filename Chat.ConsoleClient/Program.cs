@@ -29,7 +29,7 @@ namespace Chat.ConsoleClient
         private static void WriteMessageBlock()
         {
             Console.WriteLine(new string('-', 100));
-            Console.Write("Tú: ");
+            Console.Write($"Tú (:q exit):");
         }
 
         private static Cookie LogIn(string user, string password)

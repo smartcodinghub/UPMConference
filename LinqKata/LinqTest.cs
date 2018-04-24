@@ -1,18 +1,17 @@
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace LinqKata
 {
     [TestClass]
     public class LinqTest
     {
-        private List<Dummy> values = new List<Dummy>();
-        private List<string> votes = new List<string>();
-        private List<string> pets = new List<string>();
-        private List<int> score = new List<int>();
-        private List<int> numbers = new List<int>();
-        private List<string> expand = new List<string>();
+        private List<Dummy> values;
+        private List<string> pets;
+        private List<int> score;
+        private List<int> numbers;
+        private string expand;
 
         [TestInitialize]
         public void Initialize()
@@ -25,18 +24,11 @@ namespace LinqKata
                 new Dummy () { Id = 15, Name = "Name5", Names = new List<string>() { "Na12mes15", "Na3mes25" } },
             };
 
-            this.votes = new List<string>()
-            {
-                "Yes", "Yes", "No", "Yes", "No", "Yes", "No", "No", "No",
-                "Yes", "Yes", "Yes", "No", "Yes", "No", "No", "Yes", "No",
-                "Yes", "Yes", "No", "Yes", "Yes", "Yes", "No", "No", "Yes",
-            };
-
             this.pets = new List<string>()
             {
                 "Cat", "Dog", "Cat", "Chinchilla", "Rabbit", "Chinchilla", "Fish", "Fish", "Rabbit", "Cat", "Dog",
-                "Fish", "Leopard", "Cat", "Fish", "Chinchilla", "Cat", "Hamster", "Hamster", "Chinchilla", "Dog",
-                "Cat", "Dog", "Dog", "Fish", "Rabbit", "Chinchilla", "Hamster", "Rabbit", "Dog", "Dog", "Dog", "Cat",
+                "Fish", "Leopard", "Cat", "Fish", "chinchilla", "Cat", "Hamster", "Hamster", "Chinchilla", "Dog",
+                "Cat", "Dog", "Dog", "Fish", "Rabbit", "Chinchilla", "hamster", "Rabbit", "Dog", "Dog", "Dog", "Cat",
                 "Fish", "Fish", "Chinchilla", "Rabbit", "Dog", "Cat", "Hamster", "Rabbit", "Dog", "Dog", "Dog", "Dog"
             };
 
@@ -44,7 +36,7 @@ namespace LinqKata
 
             this.numbers = Enumerable.Range(0, 100).ToList();
 
-            this.expand = new List<string>() { "A5", "B10", "C", "D2" };
+            this.expand = "A5B10CD2";
         }
 
         [TestMethod]
@@ -64,24 +56,14 @@ namespace LinqKata
         }
 
         [TestMethod]
-        public void CountVotesTest()
-        {
-            var result = Linq.CountVotes(votes);
-
-            CollectionAssert.AreEquivalent(new List<int> { 15, 12 }, result);
-        }
-
-        [TestMethod]
         public void CountPetsTest()
         {
             var result = Linq.CountPets(pets);
 
-            CollectionAssert
-                .AreEquivalent(new List<string>
-                    {
-                        "Cat:8", "Chinchilla:6", "Dog:13", "Fish:7", "Hamster:4", "Leopard:1", "Rabbit:6"
-                    }
-                    , result);
+            CollectionAssert.AreEquivalent(new List<string>
+            {
+                "cat:8", "chinchilla:6", "dog:13", "fish:7", "hamster:4", "leopard:1", "rabbit:6"
+            }, result);
         }
 
         [TestMethod]

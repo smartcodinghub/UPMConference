@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace LinqKata
 {
@@ -11,7 +11,7 @@ namespace LinqKata
         {
             List<string> filtered = new List<string>();
 
-            foreach (var value in values)
+            foreach(var value in values)
             {
                 filtered.Add(value.Name);
             }
@@ -23,9 +23,9 @@ namespace LinqKata
         {
             List<string> filtered = new List<string>();
 
-            foreach (var value in values)
+            foreach(var value in values)
             {
-                if (value.Id >= min)
+                if(value.Id >= min)
                     filtered.Add(value.Name);
             }
 
@@ -36,7 +36,7 @@ namespace LinqKata
         {
             List<Dummy> filtered = new List<Dummy>();
 
-            for (int i = start; i < values.Count || i <= end; i++)
+            for(int i = start; i < values.Count || i <= end; i++)
             {
                 filtered.Add(values[i]);
             }
@@ -48,7 +48,7 @@ namespace LinqKata
         {
             List<string> filtered = new List<string>();
 
-            foreach (var value in values)
+            foreach(var value in values)
             {
                 filtered.AddRange(value.Names);
             }
@@ -60,11 +60,11 @@ namespace LinqKata
         {
             List<string> filtered = new List<string>();
 
-            foreach (var value in values)
+            foreach(var value in values)
             {
-                foreach (string name in value.Names)
+                foreach(string name in value.Names)
                 {
-                    if (!filtered.Contains(name)) filtered.Add(name);
+                    if(!filtered.Contains(name)) filtered.Add(name);
                 }
             }
 
@@ -85,30 +85,21 @@ namespace LinqKata
         }
 
         /// <summary>
-        /// Votes = new List<string>() { "Yes", "No", "Yes", "No", "No" }
-        /// 
-        /// Lista con el número de "Yes" y el número de "No"
-        /// Debería devolver -> new List<int>() {2, 3};
-        /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        public static List<int> CountVotes(List<string> votes)
-        {
-            return null;
-        }
-
-        /// <summary>
         /// Pets = new List<string>() { "Dog", "Cat", "Rabbit", "Dog", "Dog", "Cat" };
         /// 
         /// Lista con el nombre del animal seguido de : y el número de veces que se repite (SIN ESPACIOS)
         /// Ordenada ascendente por el animal
-        /// Debería devolver -> new List<string>() {"Cat:2", "Dog:3", "Rabbit:1"};
+        /// Debería devolver -> new List<string>() {"cat:2", "dog:3", "rabbit:1"};
         /// </summary>
         /// <param name="pets"></param>
         /// <returns></returns>
         public static List<string> CountPets(List<string> pets)
         {
-            return null;
+            return pets.GroupBy(n => n.ToLower())
+                .Select(n => new { n.Key, Count = n.Count() })
+                .OrderBy(n => n.Key)
+                .Select(n => $"{n.Key}:{n.Count}")
+                .ToList();
         }
 
         /// <summary>
@@ -121,7 +112,7 @@ namespace LinqKata
         /// <returns></returns>
         public static int TotalScore(List<int> score)
         {
-            return 0;
+            return score.OrderBy(s => s).Skip(3).Sum();
         }
 
         /// <summary>
@@ -134,7 +125,7 @@ namespace LinqKata
         /// <returns></returns>
         public static List<int> NumbersFromFiveToFive(List<int> numbers)
         {
-            return null;
+            return numbers.Where((x, i) => i % 5 == 0).ToList();
         }
 
         /// <summary>
@@ -145,9 +136,15 @@ namespace LinqKata
         /// </summary>
         /// <param name="expand"></param>
         /// <returns></returns>
-        public static string ExpandLetters(List<string> expand)
+        public static string ExpandLetters(string expand)
         {
-            return null;
+            Regex r = new Regex(@"(\w)(\d*)");
+
+            return r.Matches(expand)
+                .Select(m => new { Letter = m.Groups[1].Value, Count = m.Groups[2].Value })
+                .Select(g => new { Letter = g.Letter[0], Count = string.IsNullOrEmpty(g.Count) ? 1 : int.Parse(g.Count) })
+                .Aggregate(new StringBuilder(), (seed, next) => seed.Append(next.Letter, next.Count))
+                .ToString();
         }
     }
 
