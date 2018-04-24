@@ -48,6 +48,38 @@ namespace LinqKata
         }
 
         [TestMethod]
+        public void FilterByMinIdTest()
+        {
+            var result = Linq.FilterByMinId(values, 14);
+
+            CollectionAssert.AreEquivalent(new List<string>() { "Name4", "Name5" }, result);
+        }
+
+        [TestMethod]
+        public void SliceTest()
+        {
+            var result = Linq.Slice(values, 1, 2);
+
+            CollectionAssert.AreEquivalent(new List<Dummy>() { values[1], values[2] }, result);
+        }
+
+        [TestMethod]
+        public void AllNamesTest()
+        {
+            var result = Linq.AllNames(values);
+
+            CollectionAssert.AreEquivalent(new List<string>() { "Names1", "Names2", "Names1", "Names2", "Names14", "Nam4es24", "Na12mes15", "Na3mes25" }, result);
+        }
+
+        [TestMethod]
+        public void AllDistinctNamesTest()
+        {
+            var result = Linq.AllDistinctNames(values);
+
+            CollectionAssert.AreEquivalent(new List<string>() { "Names1", "Names2", "Names14", "Nam4es24", "Na12mes15", "Na3mes25" }, result);
+        }
+
+        [TestMethod]
         public void GetNumbersOfNamesTest()
         {
             var result = Linq.GetNumbersOfNames(values);

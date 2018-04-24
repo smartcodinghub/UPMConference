@@ -34,7 +34,7 @@ namespace LinqKata
         {
             List<Dummy> filtered = new List<Dummy>();
 
-            for(int i = start; i < values.Count || i <= end; i++)
+            for(int i = start; i < values.Count && i <= end; i++)
             {
                 filtered.Add(values[i]);
             }
