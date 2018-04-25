@@ -6,9 +6,15 @@ La presentación está subida en el repositorio, en ```master```.
 
 ### Ponentes:
 
-* **Julia Alejandra Martínez Puente**  (Arq .Net): jampuente@minsait.com
-* **Óscar Vicente Pérez**              (Arq .Net): ovicente@minsait.com
-* **Paula Álvarez Carpintero**         (RRHH): ovicente@minsait.com
+* **Julia Alejandra Martínez Puente** (Arq .Net)
+  * Email: jampuente@minsait.com
+  * LinkedIn: https://www.linkedin.com/in/juliajmp/
+* **Óscar Vicente Pérez** (Arq .Net)
+  * Email: ovicente@minsait.com
+  * LinkedIn: https://www.linkedin.com/in/oscarvicenteperez/
+* **Paula Álvarez Carpintero** (RRHH)
+  * Email: palvarezc@minsait.com
+  * LinkedIn: https://www.linkedin.com/in/paulaalvarezcarpintero/
 
 ## Talleres
 
